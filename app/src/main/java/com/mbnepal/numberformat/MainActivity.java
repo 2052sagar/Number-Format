@@ -66,19 +66,42 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 editText.removeTextChangedListener(this);
 
-                String s1 = s.toString().trim();
-                int index = s1.indexOf("\\,");
-                if(s1.endsWith("000"))
-                    s1 = s1.substring(0,index);
-                Toast.makeText(MainActivity.this, s1, Toast.LENGTH_SHORT).show();
-                try{
-                    if(s1.contains(".")) {
-                        s1 = s1.replaceAll("\\.", "");
-                    }
+//                String s1 = s.toString().trim();
+//                int index = s1.indexOf("\\,");
+//                if(s1.endsWith("000"))
+//                    s1 = s1.substring(0,index);
+//                Toast.makeText(MainActivity.this, s1, Toast.LENGTH_SHORT).show();
+//                try{
+//                    if(s1.contains(".")) {
+//                        s1 = s1.replaceAll("\\.", "");
+//                    }
+//
+//                    if(s1.contains(",")) {
+//                        s1 = s1.replaceAll("\\,", "");
+//                    }
+//                    DecimalFormatSymbols unusualSymbols =
+//                            new DecimalFormatSymbols(Locale.getDefault());
+//                    unusualSymbols.setDecimalSeparator(',');
+//                    unusualSymbols.setGroupingSeparator('.');
+//
+//                    String currFormat = "#,###,##0.000";
+//
+//                    DecimalFormat df = new DecimalFormat(currFormat, unusualSymbols);
+//                    String formatttedData = df.format(Double.parseDouble(s1));
+//
+//                    editText.setText(formatttedData);
+//                    editText.setSelection(editText.getText().length());
+//
+//                }catch(Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//                editText.addTextChangedListener(this);
 
-                    if(s1.contains(",")) {
-                        s1 = s1.replaceAll("\\,", "");
-                    }
+                try{
+                    String formattedNumber = s.toString().trim().replace(".","").replace(",","");
+                    Double simpleNumber=Double.parseDouble(formattedNumber)/1000;
+
                     DecimalFormatSymbols unusualSymbols =
                             new DecimalFormatSymbols(Locale.getDefault());
                     unusualSymbols.setDecimalSeparator(',');
@@ -87,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     String currFormat = "#,###,##0.000";
 
                     DecimalFormat df = new DecimalFormat(currFormat, unusualSymbols);
-                    String formatttedData = df.format(Double.parseDouble(s1));
-                   
+                    String formatttedData = df.format(simpleNumber);
+
                     editText.setText(formatttedData);
                     editText.setSelection(editText.getText().length());
 
